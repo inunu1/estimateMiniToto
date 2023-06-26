@@ -18,4 +18,3 @@ public class SystemController {
     //レーティング計算を行うコントローラー
 
 }
-
