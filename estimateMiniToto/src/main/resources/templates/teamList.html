@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Jリーグ チーム一覧</title>
+</head>
+<body>
+<h1>Jリーグ チーム一覧</h1>
+<table>
+    <thead>
+    <tr>
+        <th>チーム名</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="team : ${teamList}">
+        <td th:text="${team}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

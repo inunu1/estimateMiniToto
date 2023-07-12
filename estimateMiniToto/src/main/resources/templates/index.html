@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Jリーグ チーム一覧</title>
+</head>
+<body>
+<header>
+    <h1>MagiSystem</h1>
+</header>
+<div th:replace="~{common :: header}"></div>
+<div id="register_form" class="form">
+    <h2 class="keeper">メインメニュー</h2>
+    <form method="get" th:action="@{/scraping}">
+        <button type="submit" class="menu_button">データ収集</button>
+    </form>
+    <form method="get" th:action="@{/calc}">
+        <button type="submit" class="menu_button">レート計算</button>
+    </form>
+    <form method="get" th:action="@{/prophet}">
+        <button type="submit" class="menu_button">結果予測</button>
+    </form>
+</div>
+<!-- チーム一覧を表示する部分のコードを追加 -->
+</body>
+</html>
