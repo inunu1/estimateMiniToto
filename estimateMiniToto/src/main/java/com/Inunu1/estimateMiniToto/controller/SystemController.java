@@ -1,14 +1,19 @@
 package com.Inunu1.estimateMiniToto.controller;
 
+import com.Inunu1.estimateMiniToto.Util.DateTimeUtil;
+import com.Inunu1.estimateMiniToto.service.ScrapingService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
-import com.Inunu1.estimateMiniToto.;
 import java.util.List;
 
 @Controller
 public class SystemController {
+    @Autowired
+    private ScrapingService scrapingService;
 
     //チームをスクレイピングするコントローラー
     @GetMapping({"/", "/index"})
@@ -26,6 +31,13 @@ public class SystemController {
     public String dispScraping(Model model){
         generateTargetYears(model);
         return "scraping";
+    }
+
+    @PostMapping("/scraping")
+    public String postScraping(Model model){
+        scrapingService.scrape();
+        model.addAttribute("info","取得成功");
+        return "index";
     }
 
     /**

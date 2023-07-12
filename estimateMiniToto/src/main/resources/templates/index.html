@@ -8,10 +8,11 @@
 <header>
     <h1>MagiSystem</h1>
 </header>
-<div th:replace="~{common :: header}"></div>
+
 <div id="register_form" class="form">
     <h2 class="keeper">メインメニュー</h2>
-    <form method="get" th:action="@{/scraping}">
+    <p th:text = "${info}"></p>
+    <form method="post" th:action="@{/scraping}">
         <button type="submit" class="menu_button">データ収集</button>
     </form>
     <form method="get" th:action="@{/calc}">
