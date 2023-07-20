@@ -20,25 +20,14 @@ public class SystemController {
     public String getDefaultAccess(Model model) {
         return "index";
     }
-    //試合結果をスクレイピングするコントローラー
-    /**
-     * スクレイピング画面の表示
-     *
-     * @param model Thymeleafモデルクラス
-     * @return テンプレートマッピング用の文字列
-     */
-    @GetMapping("/scraping")
-    public String dispScraping(Model model){
-        generateTargetYears(model);
-        return "scraping";
-    }
+
 
     /****************************************
      * チーム名取得押下時処理
      * チーム名をスクレイピングする処理を呼び出す
      * 引数：
      ****************************************/
-    @PostMapping("/scraping")
+    @GetMapping("/scraping")
     public String postScraping(Model model){
         scrapingService.scrapeTeamName();
         model.addAttribute("info","取得成功");
