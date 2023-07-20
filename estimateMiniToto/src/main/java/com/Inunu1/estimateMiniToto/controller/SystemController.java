@@ -15,23 +15,29 @@ public class SystemController {
     @Autowired
     private ScrapingService scrapingService;
 
-    //チームをスクレイピングするコントローラー
+    /****************************************
+     * 和名:メニュー画面表示処理
+     * 概要:メニュー画面を表示する
+     * 引数:無し
+     * 戻り値:メニュー画面
+     ****************************************/
     @GetMapping({"/", "/index"})
     public String getDefaultAccess(Model model) {
         return "index";
     }
 
-
     /****************************************
-     * チーム名取得押下時処理
-     * チーム名をスクレイピングする処理を呼び出す
-     * 引数：
+     * 和名:チーム一覧画面表示処理
+     * 概要:チーム名をスクレイピングする処理を呼び出す
+     * 引数:無し
+     * 戻り値:チーム一覧画面
      ****************************************/
     @GetMapping("/scraping")
-    public String postScraping(Model model){
-        scrapingService.scrapeTeamName();
-        model.addAttribute("info","取得成功");
-        return "index";
+    public String getScraping(Model model){
+        List<String> teamNames = scrapingService.scrapeTeamName();
+        model.addAttribute("teamNames", teamNames);
+        model.addAttribute("info", "取得成功");
+        return "teamList";
     }
 
     /**

@@ -7,12 +7,21 @@ import org.jsoup.select.Elements;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class ScrapingService {
     private static final String J_LEAGUE_DATA_SITE_URL = "https://data.j-league.or.jp/SFMS01/search";
 
-    public void scrapeTeamName(){
+    /****************************************
+     * 和名:チーム一覧取得処理
+     * 概要:チーム名をスクレイピングする処理
+     * 引数:無し
+     * 戻り値:チーム一覧画面
+     ****************************************/
+    public List<String> scrapeTeamName(){
+        List<String> teamNames = new ArrayList<>();
         try {
             //docて変数にHTMLを丸ごと入れるよ
             Document doc = Jsoup.connect(J_LEAGUE_DATA_SITE_URL).get();
@@ -26,10 +35,12 @@ public class ScrapingService {
             //ラベルからチーム名を抜き出すよ
             for (Element teamElement : teamElements){
                 String teamName = teamElement.text();
-                System.out.println(teamName);
+                teamNames.add(teamName);
+                //System.out.println(teamName);
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        return teamNames;
     }
 }

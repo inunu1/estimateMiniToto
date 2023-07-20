@@ -5,18 +5,11 @@
     <title>Jリーグ チーム一覧</title>
 </head>
 <body>
-<h1>Jリーグ チーム一覧</h1>
-<table>
-    <thead>
-    <tr>
-        <th>チーム名</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="team : ${teamList}">
-        <td th:text="${team}"></td>
-    </tr>
-    </tbody>
-</table>
+<div>
+    <h2>チーム一覧</h2>
+    <ul>
+        <li th:each="teamName : ${teamNames}" th:text="${teamName}"></li>
+    </ul>
+</div>
 </body>
 </html>
