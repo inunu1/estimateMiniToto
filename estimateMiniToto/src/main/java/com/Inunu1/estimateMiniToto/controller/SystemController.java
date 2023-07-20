@@ -33,9 +33,14 @@ public class SystemController {
         return "scraping";
     }
 
+    /****************************************
+     * チーム名取得押下時処理
+     * チーム名をスクレイピングする処理を呼び出す
+     * 引数：
+     ****************************************/
     @PostMapping("/scraping")
     public String postScraping(Model model){
-        scrapingService.scrape();
+        scrapingService.scrapeTeamName();
         model.addAttribute("info","取得成功");
         return "index";
     }

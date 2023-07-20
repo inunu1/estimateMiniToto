@@ -12,7 +12,7 @@ import java.io.IOException;
 public class ScrapingService {
     private static final String J_LEAGUE_DATA_SITE_URL = "https://data.j-league.or.jp/SFMS01/search";
 
-    public void scrape(){
+    public void scrapeTeamName(){
         try {
             //docて変数にHTMLを丸ごと入れるよ
             Document doc = Jsoup.connect(J_LEAGUE_DATA_SITE_URL).get();
