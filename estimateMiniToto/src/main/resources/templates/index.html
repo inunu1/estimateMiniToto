@@ -23,6 +23,12 @@
     </form>
 </div>
 <!-- チーム一覧を表示する部分のコードを追加 -->
-
+<div>
+    <h2>チーム一覧</h2>
+    <ul>
+        <li th:each="teamName : ${teamNames}" th:text="${teamName}"></li>
+    </ul>
+</div>
+<!-- 前年と今年の試合結果を表示 -->
 </body>
 </html>

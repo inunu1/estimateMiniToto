@@ -37,7 +37,7 @@ public class SystemController {
         List<String> teamNames = scrapingService.scrapeTeamName();
         model.addAttribute("teamNames", teamNames);
         model.addAttribute("info", "取得成功");
-        return "teamList";
+        return "index";
     }
 
     /**
