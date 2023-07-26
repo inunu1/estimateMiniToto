@@ -1,12 +1,11 @@
 package com.Inunu1.estimateMiniToto.controller;
 
-import com.Inunu1.estimateMiniToto.Util.DateTimeUtil;
+import com.Inunu1.estimateMiniToto.util.DateTimeUtil;
 import com.Inunu1.estimateMiniToto.service.ScrapingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 

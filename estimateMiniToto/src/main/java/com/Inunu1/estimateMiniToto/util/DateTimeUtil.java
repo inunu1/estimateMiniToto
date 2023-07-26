@@ -1,4 +1,4 @@
-package com.Inunu1.estimateMiniToto.Util;
+package com.Inunu1.estimateMiniToto.util;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
