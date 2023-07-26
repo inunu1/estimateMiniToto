@@ -35,7 +35,7 @@ public class SystemController {
     @GetMapping("/scrape-team")
     public String getScrapingTeam(Model model){
         List<String> teamNames = scrapingService.scrapeTeamName();
-        model.addAttribute("teamNames", gameResults);
+        model.addAttribute("teamNames", teamNames);
         model.addAttribute("info", "取得成功");
         return "index";
     }
