@@ -1,14 +1,16 @@
 package com.Inunu1.estimateMiniToto.service;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import com.Inunu1.estimateMiniToto.model.GameResult;
 
 @Service
 public class ScrapingService {
@@ -50,8 +52,8 @@ public class ScrapingService {
         return teamNames;
     }
 
-    public List<String> scrapeResult(){
-        List<String> gameResults = new ArrayList<>();
+    public List<GameResult> scrapeResult(){
+        List<GameResult> gameResults = new ArrayList<>();
         try{
             //docて変数にHTMLを丸ごと入れるよ
             Document doc = Jsoup.connect(J_LEAGUE_SEARCH_RESULT_URL).get();
@@ -61,19 +63,32 @@ public class ScrapingService {
             Elements gameResultTrs = gameResultTable.select("tr");
             //gameResultsに一行ずつ追加するよ
             for (Element gameResultTr : gameResultTrs){
+                GameResult gameResult = new GameResult();
+
                 //行のtdタグを全部取るよ
                 Elements gameResultTds = gameResultTr.select("td");
-                for (Element gameResultTd : gameResultTds){
-                    //
-                    Elements gameResult = gameResultTd.select("td");
+                for (int i = 0; i < gameResultTds.size(); i++) {
 
+                    Element gameResultTd = gameResultTds.get(i);
+
+                    String tdText = gameResultTd.text();
+
+                    if (i == 0) {
+                        gameResult.setYear(tdText);
+                    } else if (i == 1) {
+                        gameResult.setTournament(tdText);
+                    }
+                    // TODO 他の項目についても設定していく
                 }
 
-                //System.out.println(teamName);
+                gameResults.add(gameResult);
+
             }
+
         }catch (IOException e){
             throw new RuntimeException(e);
         }
+
         return gameResults;
     }
 }

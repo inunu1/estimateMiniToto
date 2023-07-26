@@ -1,13 +1,15 @@
 package com.Inunu1.estimateMiniToto.controller;
 
-import com.Inunu1.estimateMiniToto.util.DateTimeUtil;
-import com.Inunu1.estimateMiniToto.service.ScrapingService;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import java.util.List;
+import com.Inunu1.estimateMiniToto.model.GameResult;
+import com.Inunu1.estimateMiniToto.service.ScrapingService;
+import com.Inunu1.estimateMiniToto.util.DateTimeUtil;
 
 @Controller
 public class SystemController {
@@ -44,8 +46,8 @@ public class SystemController {
      */
     @GetMapping("/scrape-result")
     public String getScrapingResult(Model model){
-        List<String> teamNames = scrapingService.scrapeResult();
-        model.addAttribute("teamNames", teamNames);
+        List<GameResult> gameResults = scrapingService.scrapeResult();
+        model.addAttribute("gameResults", gameResults);
         model.addAttribute("info", "取得成功");
         return "index";
     }
