@@ -32,13 +32,25 @@ public class SystemController {
      * 引数:無し
      * 戻り値:チーム一覧画面
      ****************************************/
-    @GetMapping("/scraping")
-    public String getScraping(Model model){
+    @GetMapping("/scrape-team")
+    public String getScrapingTeam(Model model){
         List<String> teamNames = scrapingService.scrapeTeamName();
+        model.addAttribute("teamNames", gameResults);
+        model.addAttribute("info", "取得成功");
+        return "index";
+    }
+
+    /**
+     *
+     */
+    @GetMapping("/scrape-result")
+    public String getScrapingResult(Model model){
+        List<String> teamNames = scrapingService.scrapeResult();
         model.addAttribute("teamNames", teamNames);
         model.addAttribute("info", "取得成功");
         return "index";
     }
+
 
     /**
      * 対象年を画面パラメータに設定する（現在年から過去5年を設定）

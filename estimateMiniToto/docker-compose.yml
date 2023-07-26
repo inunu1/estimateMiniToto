@@ -1,0 +1,18 @@
+version: "3.9"
+
+services:
+  mysql:
+    image: mysql:8.0.28
+    platform: linux/amd64
+    #platform: windows
+    container_name: MagiSystemDB
+    restart: always
+    environment:
+      MYSQL_DATABASE: MagiSystemDB
+      MYSQL_ROOT_PASSWORD: root
+      TZ: "Asia/Tokyo"
+    volumes:
+      - ./my.cnf:/etc/mysql/conf.d/my.cnf
+      - ./initdb.d:/docker-entrypoint-initdb.d
+    ports:
+      - 3306:3306

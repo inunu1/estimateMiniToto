@@ -13,6 +13,7 @@ import java.util.List;
 @Service
 public class ScrapingService {
     private static final String J_LEAGUE_DATA_SITE_URL = "https://data.j-league.or.jp/SFMS01/search";
+    private static final String J_LEAGUE_SEARCH_RESULT_URL = "https://data.j-league.or.jp/SFMS01/search?competition_years=2023";
 
     /****************************************
      * 和名:チーム一覧取得処理
@@ -20,6 +21,11 @@ public class ScrapingService {
      * 引数:無し
      * 戻り値:チーム一覧画面
      ****************************************/
+    /**
+     *
+     *
+     * @return
+     */
     public List<String> scrapeTeamName(){
         List<String> teamNames = new ArrayList<>();
         try {
@@ -42,5 +48,32 @@ public class ScrapingService {
             throw new RuntimeException(e);
         }
         return teamNames;
+    }
+
+    public List<String> scrapeResult(){
+        List<String> gameResults = new ArrayList<>();
+        try{
+            //docて変数にHTMLを丸ごと入れるよ
+            Document doc = Jsoup.connect(J_LEAGUE_SEARCH_RESULT_URL).get();
+            //tableタグの試合結果丸ごと取るよ
+            Element gameResultTable = doc.select("table").first();
+            //全行丸ごと取るよ
+            Elements gameResultTrs = gameResultTable.select("tr");
+            //gameResultsに一行ずつ追加するよ
+            for (Element gameResultTr : gameResultTrs){
+                //行のtdタグを全部取るよ
+                Elements gameResultTds = gameResultTr.select("td");
+                for (Element gameResultTd : gameResultTds){
+                    //
+                    Elements gameResult = gameResultTd.select("td");
+
+                }
+
+                //System.out.println(teamName);
+            }
+        }catch (IOException e){
+            throw new RuntimeException(e);
+        }
+        return gameResults;
     }
 }
