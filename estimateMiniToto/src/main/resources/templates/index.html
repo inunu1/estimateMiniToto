@@ -32,6 +32,33 @@
         <li th:each="teamName : ${teamNames}" th:text="${teamName}"></li>
     </ul>
 </div>
+
+<table class="base_table" id="resultTable" th:if="${not #lists.isEmpty(gameResults)}">
+    <caption>【収集結果】</caption>
+    <thead>
+    <th>年度</th>
+    <th>大会</th>
+    <th>節</th>
+    <th>試合日</th>
+    <th>K/O時刻</th>
+    <th>ホーム</th>
+    <th>スコア</th>
+    <th>アウェイ</th>
+    <th>スタジアム</th>
+    </thead>
+    <tr th:each="gameResult : ${gameResults}" th:object="${gameResult}">
+        <td th:text="*{year}"/>
+        <td th:text="*{tournament}"/>
+        <td th:text="*{section}"/>
+        <td th:text="*{gameDate}"/>
+        <td th:text="*{gameTime}"/>
+        <td th:text="*{home}"/>
+        <td th:text="*{score}"/>
+        <td th:text="*{away}"/>
+        <td th:text="*{stadium}"/>
+    </tr>
+</table>
+
 <!-- 前年と今年の試合結果を表示 -->
 </body>
 </html>

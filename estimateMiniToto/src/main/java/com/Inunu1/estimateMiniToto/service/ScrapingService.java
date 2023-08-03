@@ -77,7 +77,24 @@ public class ScrapingService {
                         gameResult.setYear(tdText);
                     } else if (i == 1) {
                         gameResult.setTournament(tdText);
+                    } else if (i == 2) {
+                        gameResult.setSection(tdText);
+                    } else if (i == 3) {
+                        gameResult.setGameDate(tdText);
+                    }else if (i == 4) {
+                        gameResult.setGameTime(tdText);
+                    }else if (i == 5) {
+                        gameResult.setHome(tdText);
+                    }else if (i == 6) {
+                        gameResult.setScore(tdText);
+                    }else if (i == 7) {
+                        gameResult.setAway(tdText);
+                    }else if (i == 8) {
+                        gameResult.setStadium(tdText);
+                    }else if (i == 9) {
+                        gameResult.setResult(tdText);
                     }
+
                     // TODO 他の項目についても設定していく
                 }
 
