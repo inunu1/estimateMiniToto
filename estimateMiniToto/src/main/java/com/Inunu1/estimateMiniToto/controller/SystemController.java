@@ -2,6 +2,7 @@ package com.Inunu1.estimateMiniToto.controller;
 
 import java.util.List;
 
+import com.Inunu1.estimateMiniToto.model.GameResultRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +16,8 @@ import com.Inunu1.estimateMiniToto.util.DateTimeUtil;
 public class SystemController {
     @Autowired
     private ScrapingService scrapingService;
+    @Autowired
+    private GameResultRepository gameResultRepository;
 
     /****************************************
      * 和名:メニュー画面表示処理
@@ -49,6 +52,7 @@ public class SystemController {
         List<GameResult> gameResults = scrapingService.scrapeResult();
         model.addAttribute("gameResults", gameResults);
         model.addAttribute("info", "取得成功");
+        gameResultRepository.saveAll(gameResults);
         return "index";
     }
 
