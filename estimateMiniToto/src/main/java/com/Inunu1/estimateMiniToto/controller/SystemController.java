@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import com.Inunu1.estimateMiniToto.model.table.GameResult;
 import com.Inunu1.estimateMiniToto.model.table.TeamInfo;
-import com.Inunu1.estimateMiniToto.repository.GameResultRepository;
 import com.Inunu1.estimateMiniToto.service.ScrapingService;
 import com.Inunu1.estimateMiniToto.util.DateTimeUtil;
 
@@ -17,8 +16,6 @@ import com.Inunu1.estimateMiniToto.util.DateTimeUtil;
 public class SystemController {
     @Autowired
     private ScrapingService scrapingService;
-    @Autowired
-    private GameResultRepository gameResultRepository;
 
 
     /****************************************
@@ -57,7 +54,6 @@ public class SystemController {
         List<GameResult> gameResults = scrapingService.scrapeResult();
         model.addAttribute("gameResults", gameResults);
         model.addAttribute("info", "取得成功");
-        gameResultRepository.saveAll(gameResults);
         return "index";
     }
 
