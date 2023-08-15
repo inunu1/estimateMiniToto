@@ -2,14 +2,14 @@ package com.Inunu1.estimateMiniToto.controller;
 
 import java.util.List;
 
-import com.Inunu1.estimateMiniToto.model.table.TeamInfo;
-import com.Inunu1.estimateMiniToto.repository.GameResultRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.Inunu1.estimateMiniToto.model.table.GameResult;
+import com.Inunu1.estimateMiniToto.model.table.TeamInfo;
+import com.Inunu1.estimateMiniToto.repository.GameResultRepository;
 import com.Inunu1.estimateMiniToto.service.ScrapingService;
 import com.Inunu1.estimateMiniToto.util.DateTimeUtil;
 
@@ -40,7 +40,10 @@ public class SystemController {
      ****************************************/
     @GetMapping("/scrape-team")
     public String getScrapingTeam(Model model){
-        List<TeamInfo> teamNames = scrapingService.scrapeTeamName();
+        List<TeamInfo> teamInfoList = scrapingService.scrapeTeamName();
+        // TODO 一旦は名前だけ出すように修正する
+        List<String> teamNames = teamInfoList.stream().map(team -> team.getTeamName()).toList();
+        
         model.addAttribute("teamNames", teamNames);
         model.addAttribute("info", "取得成功");
         return "index";
