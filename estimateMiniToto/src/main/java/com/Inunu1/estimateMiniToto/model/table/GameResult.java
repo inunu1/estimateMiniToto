@@ -1,4 +1,4 @@
-package com.Inunu1.estimateMiniToto.model;
+package com.Inunu1.estimateMiniToto.model.table;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

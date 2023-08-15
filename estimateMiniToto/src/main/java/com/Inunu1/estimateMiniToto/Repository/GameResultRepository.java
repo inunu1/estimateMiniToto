@@ -1,5 +1,6 @@
-package com.Inunu1.estimateMiniToto.model;
+package com.Inunu1.estimateMiniToto.Repository;
 
+import com.Inunu1.estimateMiniToto.model.table.GameResult;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

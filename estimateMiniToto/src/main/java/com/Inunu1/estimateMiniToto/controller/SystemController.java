@@ -2,13 +2,13 @@ package com.Inunu1.estimateMiniToto.controller;
 
 import java.util.List;
 
-import com.Inunu1.estimateMiniToto.model.GameResultRepository;
+import com.Inunu1.estimateMiniToto.Repository.GameResultRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import com.Inunu1.estimateMiniToto.model.GameResult;
+import com.Inunu1.estimateMiniToto.model.table.GameResult;
 import com.Inunu1.estimateMiniToto.service.ScrapingService;
 import com.Inunu1.estimateMiniToto.util.DateTimeUtil;
 

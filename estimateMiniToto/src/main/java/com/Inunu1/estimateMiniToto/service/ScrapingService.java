@@ -10,7 +10,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Service;
 
-import com.Inunu1.estimateMiniToto.model.GameResult;
+import com.Inunu1.estimateMiniToto.model.table.GameResult;
 
 @Service
 public class ScrapingService {
