@@ -1,4 +1,4 @@
-package com.Inunu1.estimateMiniToto.Repository;
+package com.Inunu1.estimateMiniToto.repository;
 
 import com.Inunu1.estimateMiniToto.model.table.GameResult;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.Inunu1.estimateMiniToto.model.table.TeamInfo;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -28,8 +29,8 @@ public class ScrapingService {
      *
      * @return
      */
-    public List<String> scrapeTeamName(){
-        List<String> teamNames = new ArrayList<>();
+    public List<TeamInfo> scrapeTeamName(){
+        List<TeamInfo> teamInfoList = new ArrayList<>();
         try {
             //docて変数にHTMLを丸ごと入れるよ
             Document doc = Jsoup.connect(J_LEAGUE_DATA_SITE_URL).get();
@@ -43,13 +44,17 @@ public class ScrapingService {
             //ラベルからチーム名を抜き出すよ
             for (Element teamElement : teamElements){
                 String teamName = teamElement.text();
-                teamNames.add(teamName);
+                TeamInfo teamInfo = new TeamInfo();
+                teamInfo.setTeamName(teamName);
+                teamInfoList.add(teamInfo);
                 //System.out.println(teamName);
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return teamNames;
+        //DBにチーム情報を突っ込むよ
+
+        return teamInfoList;
     }
 
     public List<GameResult> scrapeResult(){

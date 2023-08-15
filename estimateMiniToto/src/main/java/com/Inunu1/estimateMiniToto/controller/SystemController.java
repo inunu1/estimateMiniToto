@@ -2,7 +2,8 @@ package com.Inunu1.estimateMiniToto.controller;
 
 import java.util.List;
 
-import com.Inunu1.estimateMiniToto.Repository.GameResultRepository;
+import com.Inunu1.estimateMiniToto.model.table.TeamInfo;
+import com.Inunu1.estimateMiniToto.repository.GameResultRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +19,7 @@ public class SystemController {
     private ScrapingService scrapingService;
     @Autowired
     private GameResultRepository gameResultRepository;
+
 
     /****************************************
      * 和名:メニュー画面表示処理
@@ -38,7 +40,7 @@ public class SystemController {
      ****************************************/
     @GetMapping("/scrape-team")
     public String getScrapingTeam(Model model){
-        List<String> teamNames = scrapingService.scrapeTeamName();
+        List<TeamInfo> teamNames = scrapingService.scrapeTeamName();
         model.addAttribute("teamNames", teamNames);
         model.addAttribute("info", "取得成功");
         return "index";
