@@ -19,10 +19,10 @@ public class TeamInfo {
     private String teamName;
 
     @Column(name = "home_rate")
-    private String homeRate;
+    private int homeRate;
 
     @Column(name = "away_rate")
-    private String awayRate;
+    private int awayRate;
 
     @Column(name = "regist_date")
     private String registDate;

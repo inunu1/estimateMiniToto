@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.Inunu1.estimateMiniToto.repository.TeamInfoCustomRepository;
+import com.Inunu1.estimateMiniToto.repository.TeamInfoRepository;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -25,10 +27,14 @@ public class ScrapingService {
 
     @Autowired
     private GameResultRepository gameResultRepository;
+    @Autowired
+    private TeamInfoRepository teamInfoRepository;
     
     // TODO 後で2つに集約したい
     @Autowired
     private GameResultCustomRepository gameResultCustomRepository;
+    @Autowired
+    private TeamInfoCustomRepository teamInfoCustomRepository;
     
     /****************************************
      * 和名:チーム一覧取得処理
@@ -53,18 +59,34 @@ public class ScrapingService {
             Element teamInfoArea = teamInfoBoxChild.getElementsByClass("box-overflow").last();
             //チーム名が入ったラベルタグ一覧を取るよ
             Elements teamElements = teamInfoArea.select("option");
+
+            String nowDt = DateTimeUtil.getNowDateStr("yyyyMMddHHmm");
+
+            int teamId = teamInfoCustomRepository.getMaxTeamId();
             //ラベルからチーム名を抜き出すよ
-            for (Element teamElement : teamElements){
-                String teamName = teamElement.text();
+            for (int i = 0; i < teamElements.size(); i++) {
+                String teamName = teamElements.get(i).text();
                 TeamInfo teamInfo = new TeamInfo();
                 teamInfo.setTeamName(teamName);
+                teamId ++;
+                teamInfo.setTeamId(teamId);
+                teamInfo.setRegistDate(nowDt);
+                teamInfo.setUpdateDate(nowDt);
+                teamInfo.setAwayRate(1500);
+                teamInfo.setHomeRate(1500);
+
                 teamInfoList.add(teamInfo);
+
+
                 //System.out.println(teamName);
+
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
         //DBにチーム情報を突っ込むよ
+
+        teamInfoRepository.saveAll(teamInfoList);
 
         return teamInfoList;
     }
