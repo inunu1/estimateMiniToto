@@ -19,11 +19,14 @@ import com.Inunu1.estimateMiniToto.model.table.TeamInfo;
 import com.Inunu1.estimateMiniToto.repository.GameResultCustomRepository;
 import com.Inunu1.estimateMiniToto.repository.GameResultRepository;
 import com.Inunu1.estimateMiniToto.util.DateTimeUtil;
+import org.springframework.transaction.annotation.Transactional;
+
+import static com.Inunu1.estimateMiniToto.util.DateTimeUtil.getNowDateStr;
 
 @Service
 public class ScrapingService {
     private static final String J_LEAGUE_DATA_SITE_URL = "https://data.j-league.or.jp/SFMS01/search";
-    private static final String J_LEAGUE_SEARCH_RESULT_URL = "https://data.j-league.or.jp/SFMS01/search?competition_years=2023";
+    private static final String J_LEAGUE_SEARCH_RESULT_URL = "https://data.j-league.or.jp/SFMS01/search?competition_years=";
 
     @Autowired
     private GameResultRepository gameResultRepository;
@@ -47,8 +50,11 @@ public class ScrapingService {
      *
      * @return
      */
+    @Transactional
     public List<TeamInfo> scrapeTeamName(){
         List<TeamInfo> teamInfoList = new ArrayList<>();
+        //DBを初期化するよ
+        teamInfoRepository.deleteAll();
         try {
             //docて変数にHTMLを丸ごと入れるよ
             Document doc = Jsoup.connect(J_LEAGUE_DATA_SITE_URL).get();
@@ -60,7 +66,7 @@ public class ScrapingService {
             //チーム名が入ったラベルタグ一覧を取るよ
             Elements teamElements = teamInfoArea.select("option");
 
-            String nowDt = DateTimeUtil.getNowDateStr("yyyyMMddHHmm");
+            String nowDt = getNowDateStr("yyyyMMddHHmm");
 
             int teamId = teamInfoCustomRepository.getMaxTeamId();
             //ラベルからチーム名を抜き出すよ
@@ -84,8 +90,8 @@ public class ScrapingService {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        //DBにチーム情報を突っ込むよ
 
+        //DBにチーム情報を突っ込むよ
         teamInfoRepository.saveAll(teamInfoList);
 
         return teamInfoList;
@@ -93,17 +99,36 @@ public class ScrapingService {
 
     public List<GameResult> scrapeResult(){
         List<GameResult> gameResults = new ArrayList<>();
-        
+        //現在の年度を取得するよ
+        Integer currentYear = DateTimeUtil.getCurrentYear();
+        Integer lastyear = currentYear -1;
+
+        gameResults.addAll(scrapeResult(String.valueOf(lastyear)));
+        gameResults.addAll(scrapeResult(String.valueOf(currentYear)));
+
+        gameResultRepository.saveAll(gameResults);
+
+        return gameResults;
+    }
+
+    private List<GameResult> scrapeResult(String year){
+
+
+
+
+        List<GameResult> gameResults = new ArrayList<>();
+
+
         // 登録済みレコードの最大IDを取得
         int gameId = gameResultCustomRepository.getMaxGameId();
         // 現在日時の取得
-        String nowDt = DateTimeUtil.getNowDateStr("yyyyMMddHHmm");
+        String nowDt = getNowDateStr("yyyyMMddHHmm");
         // スキップフラグ
         boolean skipFlg = false;
         
         try{
             //docて変数にHTMLを丸ごと入れるよ
-            Document doc = Jsoup.connect(J_LEAGUE_SEARCH_RESULT_URL).get();
+            Document doc = Jsoup.connect(J_LEAGUE_SEARCH_RESULT_URL + year).get();
             //tableタグの試合結果丸ごと取るよ
             Element gameResultTable = doc.select("table").first();
             //全行丸ごと取るよ
@@ -190,8 +215,7 @@ public class ScrapingService {
             throw new RuntimeException(e);
         }
         
-        gameResultRepository.saveAll(gameResults);
-        
         return gameResults;
     }
+
 }

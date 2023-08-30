@@ -11,6 +11,7 @@ import com.Inunu1.estimateMiniToto.model.table.GameResult;
 import com.Inunu1.estimateMiniToto.model.table.TeamInfo;
 import com.Inunu1.estimateMiniToto.service.ScrapingService;
 import com.Inunu1.estimateMiniToto.util.DateTimeUtil;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class SystemController {
