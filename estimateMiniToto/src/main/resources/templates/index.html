@@ -13,10 +13,10 @@
     <h2 class="keeper">メインメニュー</h2>
     <p th:text = "${info}"></p>
     <form method="get" th:action="@{/scrape-team}">
-        <button type="submit" class="menu_button">データ収集</button>
+        <button type="submit" class="menu_button">チーム情報収集</button>
     </form>
     <form method="get" th:action="@{/scrape-result}">
-        <button type="submit" class="menu_button">データ収集</button>
+        <button type="submit" class="menu_button">勝敗結果収集</button>
     </form>
     <form method="get" th:action="@{/calc}">
         <button type="submit" class="menu_button">レート計算</button>
